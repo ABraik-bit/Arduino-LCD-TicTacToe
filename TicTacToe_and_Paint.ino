@@ -8,7 +8,7 @@ MCUFRIEND_kbv tft;       // hard-wired for UNO shields anyway.
 #define SD_CS     10
 char *name = "Please Calibrate.";  //edit name of shield
 
-const int TS_LEFT=911,TS_RT=122,TS_TOP=79,TS_BOT=904;
+const int TS_LEFT=127,TS_RT=903,TS_TOP=940,TS_BOT=93;
 #define YP A3
 #define XM A2
 #define YM 9 
@@ -123,11 +123,11 @@ int gamePick()
     tft.fillRect(0, tft.height()/2, tft.width(), tft.height()/2, MAGENTA);
     tft.drawRect(0, 0, tft.width(), tft.height()/2, WHITE);
     tft.drawRect(0, tft.height()/2, tft.width(), tft.height()/2, WHITE);
-    tft.setCursor(23, (tft.height() * 3) / 4 - 10) ;
+    tft.setCursor(29, (tft.height() * 3) / 4 - 10) ;
     tft.setTextColor(YELLOW);
-    tft.setTextSize(3);
+    tft.setTextSize(4);
     tft.print("Tic Tac Toe");
-    tft.setCursor(80, (tft.height() / 4 - 10)) ;
+    tft.setCursor(97, (tft.height() / 4 - 10)) ;
     tft.print("Paint");
    
     while(1)
@@ -137,14 +137,15 @@ int gamePick()
         pinMode(YP, OUTPUT);
         if (tp.z < MINPRESSURE || tp.z > MAXPRESSURE) continue;
         Serial.println("X=" + String(tp.x)  + " Y=" + String(tp.y));
-        if (tp.y > 96 && tp.y < 481) 
+        
+        if (tp.y > 525 && tp.y < 940)
         {
           tft.drawRect(0, 0, tft.width(), tft.height()/2, RED);
           delay(500);
           return 1;
           
         }
-        else if ( tp.y > 485 && tp.y < 911) 
+        else if (tp.y > 90 && tp.y < 520)  
         {
           tft.drawRect(0, tft.height()/2, tft.width(), tft.height()/2, RED);
           delay(500);
@@ -176,20 +177,30 @@ int pressedPos()
                 mapPt.y = map(tp.y, TS_LEFT, TS_RT, 0, tft.height());
                 break;
         }
-//        Serial.print(mapPt.x);
-//        Serial.print(" ");
-//        Serial.print(mapPt.y);
-//        Serial.println();
+        Serial.print(mapPt.x);
+        Serial.print(" ");
+        Serial.print(mapPt.y);
+        Serial.println();
         
-        if (mapPt.x > 0 && mapPt.x < 80  && mapPt.y > 0 && mapPt.y < 80) return 0;
-        else if (mapPt.x > 80 && mapPt.x < 160  && mapPt.y > 0 && mapPt.y < 80) return 1;
-        else if (mapPt.x > 160 && mapPt.x < 240  && mapPt.y > 0 && mapPt.y < 80) return 2;
-        else if (mapPt.x > 0 && mapPt.x < 80  && mapPt.y > 80 && mapPt.y < 160) return 3;
-        else if (mapPt.x > 80 && mapPt.x < 160  && mapPt.y > 80 && mapPt.y < 160) return 4;
-        else if (mapPt.x > 160 && mapPt.x < 240  && mapPt.y > 80 && mapPt.y < 160) return 5;
-        else if (mapPt.x > 0 && mapPt.x < 80  && mapPt.y > 160 && mapPt.y < 240) return 6;
-        else if (mapPt.x > 80 && mapPt.x < 160  && mapPt.y > 160 && mapPt.y < 240) return 7;
-        else if (mapPt.x > 160 && mapPt.x < 240  && mapPt.y > 160 && mapPt.y < 240) return 8;
+//        if (mapPt.x > 0 && mapPt.x < 80  && mapPt.y > 0 && mapPt.y < 80) return 0;
+//        else if (mapPt.x > 80 && mapPt.x < 160  && mapPt.y > 0 && mapPt.y < 80) return 1;
+//        else if (mapPt.x > 160 && mapPt.x < 240  && mapPt.y > 0 && mapPt.y < 80) return 2;
+//        else if (mapPt.x > 0 && mapPt.x < 80  && mapPt.y > 80 && mapPt.y < 160) return 3;
+//        else if (mapPt.x > 80 && mapPt.x < 160  && mapPt.y > 80 && mapPt.y < 160) return 4;
+//        else if (mapPt.x > 160 && mapPt.x < 240  && mapPt.y > 80 && mapPt.y < 160) return 5;
+//        else if (mapPt.x > 0 && mapPt.x < 80  && mapPt.y > 160 && mapPt.y < 240) return 6;
+//        else if (mapPt.x > 80 && mapPt.x < 160  && mapPt.y > 160 && mapPt.y < 240) return 7;
+//        else if (mapPt.x > 160 && mapPt.x < 240  && mapPt.y > 160 && mapPt.y < 240) return 8;
+//        else return -1;
+        if (mapPt.x > 0 && mapPt.x < 106  && mapPt.y > 0 && mapPt.y < 106) return 0;
+        else if (mapPt.x > 106 && mapPt.x < 212  && mapPt.y > 0 && mapPt.y < 106) return 1;
+        else if (mapPt.x > 212 && mapPt.x < 320  && mapPt.y > 0 && mapPt.y < 106) return 2;
+        else if (mapPt.x > 0 && mapPt.x < 106  && mapPt.y > 106 && mapPt.y < 212) return 3;
+        else if (mapPt.x > 106 && mapPt.x < 212  && mapPt.y > 106 && mapPt.y < 212) return 4;
+        else if (mapPt.x > 212 && mapPt.x < 320  && mapPt.y > 106 && mapPt.y < 212) return 5;
+        else if (mapPt.x > 0 && mapPt.x < 106  && mapPt.y > 212 && mapPt.y < 320) return 6;
+        else if (mapPt.x > 106 && mapPt.x < 212  && mapPt.y > 212 && mapPt.y < 320) return 7;
+        else if (mapPt.x > 212 && mapPt.x < 320  && mapPt.y > 212 && mapPt.y < 320) return 8;
         else return -1;
         
         
@@ -236,40 +247,40 @@ void printPic(int player, int pos)
   switch (pos)
   {
     case 0:
-    xPos = 2;
-    yPos = 2;
+    xPos = 3;
+    yPos = 3;
     break;
     case 1:
-    xPos = 82;
-    yPos = 2;
+    xPos = 109;
+    yPos = 3;
     break;
     case 2:
-    xPos = 162;
+    xPos = 217;
     yPos = 2;
     break;
     case 3:
-    xPos = 2;
-    yPos = 82;
+    xPos = 3;
+    yPos = 109;
     break;
     case 4:
-    xPos = 82;
-    yPos = 82;
+    xPos = 109;
+    yPos = 109;
     break;
     case 5:
-    xPos = 162;
-    yPos = 82;
+    xPos = 217;
+    yPos = 109;
     break;
     case 6:
-    xPos = 2;
-    yPos = 162;
+    xPos = 3;
+    yPos = 217;
     break;
     case 7:
-    xPos = 82;
-    yPos = 162;
+    xPos = 109;
+    yPos = 217;
     break;
     case 8:
-    xPos = 162;
-    yPos = 162;
+    xPos = 217;
+    yPos = 217;
     break; 
   }
   if (player == 1) showBMP("/husky.bmp", xPos, yPos);
@@ -348,8 +359,8 @@ void setup(void)
     if (gameChoice == 2)
     {
       initGame();
-      tp.x = 531;
-      tp.y = 869;
+//      tp.x = 531;
+      tp.y = 1100;
     }
     
     if (gameChoice == 1) 
@@ -381,7 +392,7 @@ if (gameChoice == 2){
     delay(3500);
     
     tp.x = 531;
-    tp.y = 869;
+    tp.y = 1200;
     turn = 1;
     initGame();
   }
